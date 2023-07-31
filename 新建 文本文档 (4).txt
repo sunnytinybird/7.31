@@ -1,0 +1,75 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+//malloc函数的使用
+//int main()
+//{
+//	int* p =(int*) malloc(100);//malloc函数后面括号表示的是开辟空间总字节的大小，有些情况下要强转成int*
+//	int i = 0;
+//	if (p == NULL)//后必须要检查是否成功开辟空间，失败则malloc返回的是空指针
+//	{
+//		printf("%s\n", strerror(errno));//显示错误类型的函数
+//	}
+//	else 
+//	{
+//		for (i = 0;i < 25;i++)//使用这块儿空间
+//		{
+//			*(p + i) = i;
+//		}
+//	
+//		for (i = 0;i < 25;i++)
+//		{
+//			printf("%d ", *(p + i));
+//		}
+//	}
+//	free(p);//注意！！！使用完这块儿空间后一定要记得归还
+//	p = NULL;//free并不能是指针p的类容发生改变，避免成为野指针，此时要将p设为NULL
+//	return 0;
+//}
+//calloc函数的使用
+int main()
+{
+	int* p = (int*)calloc(10, 4);//与malloc不同的是参数，calloc传的是元素个数和单个元素的大小
+	if (p == NULL)
+	{
+		printf("%s\n", strerror(errno));
+	}
+	
+	else
+	{
+		int i = 0;
+		for (i = 0;i < 10;i++)
+		{
+			
+		}
+		for (i = 0;i < 10;i++)
+		{
+			printf("%d ", *(p + i));
+		}printf("\n");
+	}
+
+
+	int* ptr = (int*)realloc(p, 100);
+	if (ptr == NULL)//这里要设立一个新指针来接受realloc返回的地址，因为realloc开辟内存空间有两种情况，
+                                              //可能会导致p的地址发生改变，若开辟失败，则连p也变成了野指针
+	{
+		printf("%s\n", strerror(errno));
+	}
+	else
+	{
+		p = ptr;
+		int i = 0;
+		for (i = 0;i < 25;i++)
+		{
+			*(p + i) = i;
+		}
+		for (i = 0;i < 25;i++)
+		{
+			printf("%d ", *(p + i));
+		}
+	}
+	free(p);
+	p = NULL;
+	return 0;
+}
