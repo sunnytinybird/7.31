@@ -1,0 +1,37 @@
+//#define宏定义的相关内容
+//#define SQUIRE(x) x*x           //这里要注意一点是参数部分的左括号要紧贴定义名，否则会被当成参数的一部分
+//int main()
+//{
+//	int ret = SQUIRE(5);//5相当于替换了x，替换成为了define后面的表达式x*x，结果为25
+//	printf("%d", ret);
+//	return 0;
+//}
+//宏会严格的遵循替换原则，所以写宏的时候不要吝啬括号，改写成((x)+(x))maybe batter
+
+//#deifne定义的内容如果出现在字符串中则不会被替换
+ 
+
+////如何把宏的参数插入到字符串中?
+//#define PRINT(x) printf("the valu of x is %d\n",x)
+//int main()
+//{
+//	int a = 10;
+//	int b = 20;
+//	PRINT(a);
+//	PRINT(b);
+//	return 0;
+//}
+//这样写并没有实现字符a和b插入到字符串中，因为宏定义的内容在替换时会自动跳过扫描双引号内字符串所对应的内容
+//“#x”的作用
+#define PRINT(x) printf("the valu of "#x" is %d\n",x)
+int main()
+{
+	int a = 10;
+	int b = 20;
+	PRINT(a);
+	PRINT(b);
+	return 0;
+}
+//"#x"将x所对应的内容变成了所对应的字符串(即加双引号)
+//##的作用
+//##可以把位于它两边的符号合成一个符号。它允许宏定义从分离的文本片段
